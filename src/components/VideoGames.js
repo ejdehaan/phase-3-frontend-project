@@ -8,20 +8,45 @@ function VideoGames() {
 
   const [consoles, setConsoles] = useState([])
 
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     poster_link: "",
-//     esrb_rating: "",
-//     personal_rating: "",
-//     fave_character: "",
-//     game_trailer: "",
-//     genre: "",
-//   })
+  const [formData, setFormData] = useState({
+    name: "",
+    poster_link: "",
+    esrb_rating: "",
+    personal_rating: "",
+    fave_character: "",
+    game_trailer: "",
+    genre: "",
+    console:""
+  })
 
-//   function handleChange(e) {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({...prevData, [name]: value}))
-// }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({...prevData, [name]: value}))
+}
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    fetch("http://localhost:9292/video_games", {
+      method:"POST",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData),
+    })
+    .then(resp => resp.json())
+    .then(newGame => handleAddGame(newGame));
+    setFormData({
+      name: "",
+      poster_link: "",
+      esrb_rating: "",
+      personal_rating: "",
+      fave_character: "",
+      game_trailer: "",
+      genre: "",
+      console: ""
+    })
+  }
+
 
   
   function fetchVideoGames() {
@@ -54,65 +79,69 @@ function VideoGames() {
   function renderConsole() {
     return <Consoles consoles={consoles}/>
   }
+
+  function handleAddGame(newGame) {
+    setGames([...games, newGame])
+  }
   
   return (
     <div>
-      <form autoComplete="off"> {/* add to form --> onSubmit={handleSubmit} */}
+      <form autoComplete="off" onSubmit={handleSubmit}>
 
         <h3>Add your favorite video game!</h3>
         <label>Name  </label>
         <input 
           name="name"
-          // onChange={handleChange}
-          // value={FormData.name}
+          onChange={handleChange}
+          value={formData.name}
         />
         <br></br>
 
         <label>Poster  </label>
         <input 
           name="poster_link"
-          // onChange={handleChange}
-          // value={FormData.poster_link}
+          onChange={handleChange}
+          value={formData.poster_link}
         />
         <br></br>
 
         <label>Maturity Rating  </label>
         <input 
           name="esrb_rating"
-          // onChange={handleChange}
-          // value={FormData.esrb_rating}
+          onChange={handleChange}
+          value={formData.esrb_rating}
         />
         <br></br>
 
         <label>Personal Rating(1-5)  </label>
         <input 
           name="personal_rating"
-          // onChange={handleChange}
-          // value={FormData.personal_rating}
+          onChange={handleChange}
+          value={formData.personal_rating}
         />
         <br></br>
 
         <label>Fave Character  </label>
         <input 
-          name=" fave_character"
-          // onChange={handleChange}
-          // value={FormData.fave_character}
+          name="fave_character"
+          onChange={handleChange}
+          value={formData.fave_character}
         />
         <br></br>
 
         <label>Trailer  </label>
         <input 
           name="game_trailer"
-          // onChange={handleChange}
-          // value={FormData.game_trailer}
+          onChange={handleChange}
+          value={formData.game_trailer}
         />
         <br></br>
 
         <label>Genre  </label>
         <input 
           name="genre"
-          // onChange={handleChange}
-          // value={FormData.genre}
+          onChange={handleChange}
+          value={formData.genre}
         />
         <br></br>
         <label>Console</label>

@@ -5,7 +5,7 @@ function Consoles( {consoles} ) {
     return (
     <div>
         <select>
-            {consoles.map((console) => <option>{console.name}</option>)}
+            {consoles.map((console) => <option value={console.id}>{console.name}</option>)}
         </select>
     </div>
   )
