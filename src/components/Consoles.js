@@ -1,11 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-function Consoles( {consoles} ) {
-    console.log(consoles)
+
+function Consoles( {consoles, handleChange} ) {
+    
+    const [selected, setSelected] = useState()
+    
+    
     return (
     <div>
-        <select>
-            {consoles.map((console) => <option value={console.id}>{console.name}</option>)}
+        <select onChange={handleChange} value={selected}>
+            {consoles.map((console) => <option 
+            key={console.id} 
+            name="console_id"
+            value={console.id}>{console.name}
+            </option>)}
         </select>
     </div>
   )

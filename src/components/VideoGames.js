@@ -16,12 +16,13 @@ function VideoGames() {
     fave_character: "",
     game_trailer: "",
     genre: "",
-    console:""
+    console_id:""
   })
 
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({...prevData, [name]: value}))
+    console.log(formData)
 }
 
   function handleSubmit(e) {
@@ -43,7 +44,7 @@ function VideoGames() {
       fave_character: "",
       game_trailer: "",
       genre: "",
-      console: ""
+      console_id: ""
     })
   }
 
@@ -72,17 +73,26 @@ function VideoGames() {
   
   function renderGames() {
     return games.map((game) =>
-      <VideoGameItem key={game.id} {...game} game={game}/>
+      <VideoGameItem onDeleteGame={onDeleteGame} key={game.id} {...game} game={game}/>
     )
   }
 
   function renderConsole() {
-    return <Consoles consoles={consoles}/>
+    return <Consoles handleChange={handleChange} consoles={consoles}/>
   }
 
   function handleAddGame(newGame) {
     setGames([...games, newGame])
   }
+
+  const onDeleteGame = (id) => {
+    const updatedGames = games.filter(
+      (game) => game.id !== id
+    )
+    setGames(updatedGames)
+  }
+
+
   
   return (
     <div>
@@ -118,6 +128,7 @@ function VideoGames() {
           name="personal_rating"
           onChange={handleChange}
           value={formData.personal_rating}
+          //type=number /max number is 5
         />
         <br></br>
 
@@ -146,7 +157,6 @@ function VideoGames() {
         <br></br>
         <label>Console</label>
         <div>{renderConsole()}</div>
-        <br></br>
         <br></br>
         <button type="submit">Add Game!</button>
       </form>
