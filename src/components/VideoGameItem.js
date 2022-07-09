@@ -1,6 +1,6 @@
 import ReactPlayer from "react-player"
 
-function VideoGameItem({onDeleteGame, id, fave_character, game_trailer, genre, name, poster_link, esrb_rating, personal_ratin,}) {
+function VideoGameItem({onDeleteGame, id, fave_character, game_trailer, genre, name, poster_link, esrb_rating, personal_rating,}) {
 
 
   const handleDelete= () => {
@@ -12,16 +12,20 @@ function VideoGameItem({onDeleteGame, id, fave_character, game_trailer, genre, n
 
   return (
     <div>
-        <div>
-            <h2>{name}</h2>
-            <h4>Genre: {genre}</h4>
-            <h4>Favorite Character: {fave_character}</h4>
-            <button onClick={handleDelete}>Delete Game</button>
-            <br></br>
+        <div className="category-item">
+            <h1>
+              {name}
+              <button className="button" onClick={handleDelete}>X</button>
+            </h1>
+            <img alt={`${name}Poster` }src={poster_link} className="image"/>
+            <h3>Genre: {genre}</h3>
+            <h3>Favorite Character: {fave_character}</h3>
+            <h3>Maturity Rating: {esrb_rating}</h3>
+            <h3>Personal Rating: {personal_rating}</h3>
             <br></br>
             <ReactPlayer url={game_trailer}/>
-
-            {/* <img src={game.poster_link}></img> */}
+            <br></br>
+            <br></br>
         </div>
     </div>
   )
